@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#081628" />
+    <meta name="description"
+        content="AES portfolio command center demo: project controls, earned value, capacity, risk, reporting and local assistant." />
+    <title>AES | Portfolio Command Center</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand"><span class="brand-mark">W</span>
+                <div><strong>ENGINEERED SOLUTIONS</strong><small>Portfolio Command Center</small></div>
+            </div>
+            <div class="side-label">WORKSPACE</div>
+            <nav aria-label="Main navigation">
+                <button class="nav active" data-view="overview"><span>◫</span> Portfolio overview</button>
+                <button class="nav" data-view="projects"><span>▤</span> Project register</button>
+                <button class="nav" data-view="financials"><span>◈</span> Cost & earned value</button>
+                <button class="nav" data-view="resources"><span>♙</span> Resource capacity</button>
+                <button class="nav" data-view="risks"><span>◇</span> Risk & change</button>
+                <button class="nav" data-view="reports"><span>▥</span> Executive reporting</button>
+            </nav>
+            <div class="side-bottom">
+                <div class="demo-tag">● DEMONSTRATION MODE</div>
+                <p>Illustrative data only. Not an official Westinghouse system.</p><button id="resetData"
+                    class="text-button">↻ Reset sample data</button>
+            </div>
+        </aside>
+        <div class="main-area">
+            <header class="topbar">
+                <div class="mobile-actions"><button id="menuBtn" class="icon-btn" aria-label="Toggle menu">☰</button>
+                </div>
+                <div class="breadcrumb">AMERICAS <span>/</span> AES <span>/</span> <strong
+                        id="breadcrumbTitle">PORTFOLIO OVERVIEW</strong></div>
+                <div class="top-actions"><span class="live-dot"></span><span class="status-label">Local demo
+                        workspace</span><button class="button small outline" id="importBtn">Import JSON</button><button
+                        class="button small" id="exportBtn">Export data</button></div>
+            </header>
+            <main id="main" tabindex="-1">
+                <section class="hero">
+                    <div>
+                        <div class="eyebrow">AES PROJECT CONTROLS · MANAGEMENT WORKSPACE</div>
+                        <h1 id="pageTitle">Portfolio overview</h1>
+                        <p id="pageSubtitle">One consolidated view of delivery performance, forecasts, resources and
+                            emerging risks.</p>
+                    </div>
+                    <div class="hero-actions"><button class="button outline" id="briefBtn">✦ Ask assistant for a
+                            briefing</button><button class="button" id="addBtn">+ Add project</button></div>
+                </section>
+                <div id="viewContent" aria-live="polite"></div>
+                <footer><span>AES Portfolio Command Center · Concept demonstration</span><span>Sample data ·
+                        Browser-local persistence · Not a live operational system</span></footer>
+            </main>
+        </div>
+    </div>
+    <button id="chatFab" class="chat-fab" aria-label="Open portfolio assistant">✦ <span>Ask AES Copilot</span></button>
+    <section class="chat-panel hidden" id="chatPanel" aria-label="Portfolio assistant">
+        <div class="chat-header">
+            <div><strong>✦ AES Portfolio Assistant</strong><small>On-device analytics · No external AI calls</small>
+            </div><button id="closeChat" class="icon-btn" aria-label="Close assistant">×</button>
+        </div>
+        <div class="chat-body" id="chatHistory" aria-live="polite"></div>
+        <div class="suggestions" id="suggestions"><button data-prompt="Summarize portfolio health">Portfolio
+                health</button><button data-prompt="Which projects are at risk?">At-risk projects</button><button
+                data-prompt="Explain CPI and SPI">Explain CPI / SPI</button><button
+                data-prompt="Where are resource bottlenecks?">Resource bottlenecks</button></div>
+        <form class="chat-compose" id="chatForm"><input id="chatInput" aria-label="Ask a portfolio question"
+                placeholder="Ask about costs, risks, resources..." autocomplete="off" maxlength="500" required /><button
+                type="submit" aria-label="Send message">➤</button></form>
+        <div class="chat-disclaimer">Deterministic demo assistant. Verify all outputs before decisions.</div>
+    </section>
+    <dialog id="projectDialog" class="dialog">
+        <form id="projectForm">
+            <div class="dialog-head">
+                <h2>Add portfolio project</h2><button type="button" class="icon-btn" id="closeDialog"
+                    aria-label="Close">×</button>
+            </div>
+            <div class="form-grid"><label>Project name<input name="name" required maxlength="80"
+                        placeholder="e.g. Component upgrade" /></label><label>Project ID<input name="id" required
+                        maxlength="24" placeholder="AES-106" /></label><label>Program / workstream<select
+                        name="program">
+                        <option>Engineered Components</option>
+                        <option>Plant Modernization</option>
+                        <option>Technical Services</option>
+                    </select></label><label>Project manager<input name="owner" required maxlength="60"
+                        placeholder="Project manager" /></label><label>Budget (USD)<input name="bac" type="number"
+                        min="1" max="1000000000" step="1000" required value="2000000" /></label><label>Progress
+                    (%)<input name="progress" type="number" min="0" max="100" required
+                        value="10" /></label><label>Planned progress (%)<input name="planned" type="number" min="0"
+                        max="100" required value="15" /></label><label>Actual cost (USD)<input name="ac" type="number"
+                        min="0" max="1000000000" step="1000" required value="160000" /></label><label>Finish date<input
+                        name="finish" type="date" required /></label><label>Status<select name="status">
+                        <option>On track</option>
+                        <option>Watch</option>
+                        <option>Critical</option>
+                    </select></label></div>
+            <p class="form-note">For illustration, earned value is estimated from budget × progress; planned value from
+                budget × planned progress.</p>
+            <div class="dialog-actions"><button class="button outline" type="button"
+                    id="cancelDialog">Cancel</button><button class="button" type="submit">Create project</button></div>
+        </form>
+    </dialog>
+    <input type="file" id="fileInput" accept="application/json,.json" hidden />
+    <script src="app.js" defer></script>
+</body>
+
+</html>
